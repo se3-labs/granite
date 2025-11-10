@@ -56,6 +56,7 @@ set(CMAKE_CXX_FLAGS_CIRELWITHDEBINFO "-O3 -DEIGEN_INITIALIZE_MATRICES_BY_NAN")  
 
 # base set of compile flags
 set(GRANITE_CXX_FLAGS "-Wall -Wextra -Werror -Wno-error=unused-parameter -ftemplate-backtrace-limit=0")
+set(GRANITE_CXX_FLAGS "${GRANITE_CXX_FLAGS} -Wno-deprecated-declarations -Wno-unused-parameter -Wno-unused-variable -Wno-error=parentheses")
 
 # clang-specific compile flags
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
@@ -160,14 +161,14 @@ set(CMAKE_CXX_FLAGS "${GRANITE_CXX_FLAGS} -march=${CXX_MARCH} ${GRANITE_PASSED_C
 
 set(EIGEN_INCLUDE_DIR_HINTS ${EIGEN_ROOT})
 find_package(Eigen3 3.3.7 EXACT REQUIRED MODULE)
-include_directories(${EIGEN3_INCLUDE_DIR})
+include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 message(STATUS "Found Eigen headers in: ${EIGEN3_INCLUDE_DIR}")
 if(NOT EIGEN3_INCLUDE_DIR MATCHES "^${EIGEN_ROOT}")
   message(WARNING "Found Eigen headers are outside of specified EIGEN_ROOT '${EIGEN_ROOT}'")
 endif()
 
 find_package(TBB REQUIRED)
-include_directories(${TBB_INCLUDE_DIR})
+include_directories(SYSTEM ${TBB_INCLUDE_DIR})
 message(STATUS "TBB_INTERFACE_VERSION: ${TBB_INTERFACE_VERSION}")
 if (TBB_INTERFACE_VERSION LESS 11004)
   # enable global_control header for earlier TBB versions (Ubuntu 16.04, 18.04)
@@ -175,7 +176,7 @@ if (TBB_INTERFACE_VERSION LESS 11004)
 endif()
 
 find_package(OpenCV REQUIRED core imgproc calib3d highgui)
-include_directories(${OpenCV_INCLUDE_DIR})
+include_directories(SYSTEM ${OpenCV_INCLUDE_DIR})
 message(STATUS "Found OpenCV headers in: ${OpenCV_INCLUDE_DIR}")
 message(STATUS "Found OpenCV_LIBS: ${OpenCV_LIBS}")
 
@@ -183,11 +184,13 @@ message(STATUS "Found OpenCV_LIBS: ${OpenCV_LIBS}")
 add_subdirectory(thirdparty)
 
 
-include_directories(thirdparty/granite-headers/thirdparty/Sophus)
-include_directories(thirdparty/granite-headers/thirdparty/cereal/include)
-include_directories(thirdparty/granite-headers/include)
-include_directories(thirdparty/CLI11/include)
-include_directories(thirdparty/fast/include)
+include_directories(SYSTEM
+  thirdparty/granite-headers/thirdparty/Sophus
+  thirdparty/granite-headers/thirdparty/cereal/include
+  thirdparty/granite-headers/include
+  thirdparty/CLI11/include
+  thirdparty/fast/include
+  ${PROJECT_BINARY_DIR}/thirdparty/Pangolin/src/include)
 
 include_directories(include)
 
