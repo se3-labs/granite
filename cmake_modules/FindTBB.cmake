@@ -44,14 +44,14 @@
 # TBB_INSTALL_DIR or $ENV{TBB21_INSTALL_DIR} or $ENV{TBB_INSTALL_DIR}
 
 # This module defines
-# TBB_INCLUDE_DIRS, where to find tbb_stddef.h, etc.
+# TBB_INCLUDE_DIRS, where to find tbb.h, etc.
 # TBB_LIBRARY_DIRS, where to find libtbb, libtbbmalloc
 # TBB_DEBUG_LIBRARY_DIRS, where to find libtbb_debug, libtbbmalloc_debug
 # TBB_INSTALL_DIR, the base TBB install directory
 # TBB_LIBRARIES, the libraries to link against to use TBB.
 # TBB_DEBUG_LIBRARIES, the libraries to link against to use TBB with debug symbols.
 # TBB_FOUND, If false, don't try to use TBB.
-# TBB_INTERFACE_VERSION, as defined in tbb/tbb_stddef.h
+# TBB_INTERFACE_VERSION, as defined in tbb/tbb.h
 
 
 if (WIN32)
@@ -184,7 +184,7 @@ set (TBB_INC_SEARCH_DIR ${_TBB_INSTALL_DIR}/include)
 # Jiri: tbbvars now sets the CPATH environment variable to the directory
 #       containing the headers.
 find_path(TBB_INCLUDE_DIR
-    tbb/tbb_stddef.h
+    tbb/tbb.h
     PATHS ${TBB_INC_SEARCH_DIR} ENV CPATH
 )
 mark_as_advanced(TBB_INCLUDE_DIR)
@@ -277,7 +277,7 @@ endif (NOT _TBB_INSTALL_DIR)
 
 if (TBB_FOUND)
 	set(TBB_INTERFACE_VERSION 0)
-	FILE(READ "${TBB_INCLUDE_DIRS}/tbb/tbb_stddef.h" _TBB_VERSION_CONTENTS)
+	FILE(READ "${TBB_INCLUDE_DIRS}/tbb/tbb.h" _TBB_VERSION_CONTENTS)
 	STRING(REGEX REPLACE ".*#define TBB_INTERFACE_VERSION ([0-9]+).*" "\\1" TBB_INTERFACE_VERSION "${_TBB_VERSION_CONTENTS}")
 	set(TBB_INTERFACE_VERSION "${TBB_INTERFACE_VERSION}")
 endif (TBB_FOUND)
