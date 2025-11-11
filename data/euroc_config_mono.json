@@ -2,13 +2,12 @@
     "value0": {
         "config.optical_flow_type": "frame_to_frame",
         "config.optical_flow_detection_grid_size": 40,
-        "config.optical_flow_max_recovered_dist2": 0.04,
+        "config.optical_flow_max_recovered_dist2": 0.16,
         "config.optical_flow_pattern": 51,
         "config.optical_flow_max_iterations": 6,
         "config.optical_flow_epipolar_error": 0.005,
         "config.optical_flow_levels": 5,
         "config.optical_flow_skip_frames": 1,
-        
         "config.vio_max_states": 3,
         "config.vio_max_kfs": 11,
         "config.vio_min_frames_after_kf": 5,
@@ -33,7 +32,6 @@
         "config.vio_mono_init_min_parallax": 3,
         "config.vio_init_ba_weight": 1e1,
         "config.vio_init_bg_weight": 1e2,
-
         "config.mapper_obs_std_dev": 0.25,
         "config.mapper_obs_huber_thresh": 1.5,
         "config.mapper_detection_num_points": 800,
